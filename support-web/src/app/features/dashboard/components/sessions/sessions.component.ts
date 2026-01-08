@@ -15,6 +15,8 @@ import { CreateSessionComponent } from '../../../../shared/create-session/create
 import { RouterLink } from "@angular/router";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthService } from '../../../../core/services/auth.service';
+import { UserRole } from '../../../../core/models/user.model';
 
 export enum SessionStatus {
     Abierto = 'Abierto',
@@ -32,6 +34,7 @@ export enum SessionStatus {
 export class SessionsComponent implements OnInit, OnDestroy {
   private _sessionService = inject(SessionService);
   private readonly createSession = inject(MatDialog);
+  private _authService = inject(AuthService);
   private destroy$ = new Subject<void>();
 
   displayedColumns: string[] = ['id', 'manufacturer', 'title', 'description', 'admin', 'requestDate', 'scheduledDate', 'status'];
@@ -70,14 +73,26 @@ export class SessionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
-          this.dataSource.data = data;
+          const currentUser = this._authService.currentUserValue;
+          if (currentUser && currentUser.role === UserRole.USER) {
+            // Mostrar sólo las sesiones donde el usuario es admin o está en la lista de emails
+            this.dataSource.data = data.filter(s => {
+              const isAdmin = s.admin && s.admin === currentUser._id;
+              const isParticipant = Array.isArray(s.emails) && s.emails.includes(currentUser.email);
+              return isAdmin || isParticipant;
+            });
+          } else {
+            // Administradores u otros roles ven todas
+            this.dataSource.data = data;
+          }
+          // Re-aplica el filtro de texto si existe
           if (this.dataSource.filter) {
             this.dataSource.filter = this.dataSource.filter;
           }
           this.isLoading = false;
         },
-        error: (error) => {
-          console.error('Error al obtener sesiones:', error);
+        error: (err) => {
+          console.error('Error cargando sesiones:', err);
           this.isLoading = false;
         }
       });
