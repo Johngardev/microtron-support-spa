@@ -50,8 +50,12 @@ export class SessionService {
     } as Session;
   }
 
-  getSessionStats(): Observable<{total: number; open: number; closed: number}> {
-    return this.httpClient.get<{total: number; open: number; closed: number}>(`${this.apiUrl}/stats`);
+  getSessionStats(filter?: { createdBy?: string }): Observable<{total: number; open: number; closed: number}> {
+    const params: any = {};
+    if (filter?.createdBy) {
+      params.createdBy = filter.createdBy;
+    }
+    return this.httpClient.get<{total: number; open: number; closed: number}>(`${this.apiUrl}/stats`, { params });
   }
 
   createSession(session: Omit<Session, 'id'>): Observable<Session> {

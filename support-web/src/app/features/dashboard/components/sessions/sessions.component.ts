@@ -99,6 +99,25 @@ export class SessionsComponent implements OnInit, OnDestroy {
   }
 
   calculateStats(): void {
+    const currentUser = this._authService.currentUserValue;
+    if (currentUser && currentUser.role === UserRole.USER) {
+      // Solicitar estadísticas filtradas por el usuario actual
+      this._sessionService.getSessionStats({ createdBy: currentUser._id })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (stats) => {
+            this.totalSessions = stats.total;
+            this.totalOpenSessions = stats.open;
+            this.totalClosedSessions = stats.closed;
+          },
+          error: (error) => {
+            console.error('Error al obtener estadísticas:', error);
+          }
+        });
+      return;
+    }
+
+    // Administradores u otros roles ven estadísticas globales
     this._sessionService.getSessionStats()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
