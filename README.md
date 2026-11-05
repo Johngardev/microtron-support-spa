@@ -119,10 +119,8 @@ npm test       # ejecuta pruebas unitarias
 
 Se incluye documentación útil para comenzar y desplegar el proyecto:
 
-- [START_HERE.md](START_HERE.md) — guía inicial para entorno y flujo de uso
 - [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md) — despliegue y configuración para producción
 - [SESSIONS_API_DOCUMENTATION.md](SESSIONS_API_DOCUMENTATION.md) — documentación técnica de la API
-- [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) — resumen de implementación
 - [support-web/README.md](support-web/README.md) — documentación específica del frontend
 
 ## Buenas prácticas
