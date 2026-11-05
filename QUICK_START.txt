@@ -1,0 +1,127 @@
+⚡ QUICK START GUIDE - Gestión de Sesiones con Calendly
+
+═══════════════════════════════════════════════════════════════════════════
+
+📖 LEER PRIMERO:
+  1. START_HERE.md              ← Guía visual completa
+  2. README.md                   ← Descripción del proyecto
+  3. IMPLEMENTATION_SUMMARY.md   ← Qué se implementó
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 INSTALACIÓN RÁPIDA (30 segundos):
+
+Windows:
+  $ setup.bat
+
+macOS / Linux:
+  $ bash setup.sh
+
+Manual (3 minutos):
+  Terminal 1:
+    $ cd support-api && npm install && npm run start:dev
+  
+  Terminal 2:
+    $ cd support-web && npm install && npm start
+
+═══════════════════════════════════════════════════════════════════════════
+
+📍 ACCESO:
+
+Backend:  http://localhost:3000
+Frontend: http://localhost:4200
+API Docs: http://localhost:3000/api
+
+═══════════════════════════════════════════════════════════════════════════
+
+⚙️ CONFIGURACIÓN (.env):
+
+Archivo: support-api/.env
+
+COSMOS_MONGO_CONN=mongodb://your-connection-string
+DATABASE_NAME=support
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=24h
+CALENDLY_TOKEN=your-token-here
+
+Obtener token en: https://calendly.com/settings/integrations/api_webhooks
+
+═══════════════════════════════════════════════════════════════════════════
+
+✨ FUNCIONALIDADES:
+
+✅ Crear sesiones de soporte
+✅ Listar y filtrar sesiones
+✅ Integrar con Calendly
+✅ Gestión de participantes
+✅ Estadísticas en tiempo real
+✅ Panel administrativo
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTACIÓN COMPLETA:
+
+SESSIONS_API_DOCUMENTATION.md     Documentación técnica (endpoints, arquitectura)
+API_USAGE_EXAMPLES.md             Ejemplos de código (cURL, PowerShell, JS)
+PRODUCTION_SETUP.md               Guía de despliegue (Docker, nginx, producción)
+IMPLEMENTATION_CHECKLIST.md       Checklist detallado con próximos pasos
+support-api/CALENDLY_SETUP_GUIDE.md  Cómo configurar Calendly
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔌 ENDPOINTS PRINCIPALES:
+
+POST   /sessions              Crear sesión
+GET    /sessions              Listar sesiones
+GET    /sessions/:id          Obtener sesión
+PATCH  /sessions/:id          Actualizar sesión
+DELETE /sessions/:id          Eliminar sesión
+GET    /sessions/stats        Estadísticas
+
+POST   /sessions/:id/calendly-event    Crear evento Calendly
+DELETE /sessions/:id/calendly-event    Cancelar evento
+
+═══════════════════════════════════════════════════════════════════════════
+
+🧪 TESTING:
+
+# Data de ejemplo
+$ cd support-api && mongosh < scripts/seed-data.js
+
+# Probar API
+$ curl http://localhost:3000/sessions
+
+Ver más ejemplos en: API_USAGE_EXAMPLES.md
+
+═══════════════════════════════════════════════════════════════════════════
+
+❌ PROBLEMAS COMUNES:
+
+Backend no inicia    → Verificar MongoDB, .env
+Frontend no carga    → Revisar http://localhost:3000/sessions
+Calendly no funciona → Token válido, script en index.html
+
+Ver soluciones en: PRODUCTION_SETUP.md
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ IMPLEMENTADO:
+
+✅ Backend NestJS con 9 endpoints REST
+✅ Frontend Angular con componentes modernos
+✅ Integración Calendly completa
+✅ Documentación técnica (3000+ líneas)
+✅ Ejemplos de código (20+)
+✅ Scripts de instalación automática
+✅ Configuración Docker
+✅ Validación y manejo de errores
+
+═══════════════════════════════════════════════════════════════════════════
+
+📞 ¿NECESITAS AYUDA?
+
+Ver START_HERE.md para una guía visual completa.
+
+═══════════════════════════════════════════════════════════════════════════
+
+¡Listo para comenzar! 🚀
